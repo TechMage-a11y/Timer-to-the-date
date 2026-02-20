@@ -35,7 +35,7 @@ def calculate_plants():
         total_days = diff.days
 
         if total_days <= 0:
-            result_label.config(text="Ошибка: дата должна быть в будущем!", fg="red")
+            result_label.config(text="Ошибка: выберите будущую дату!", fg="red")
             canvas.delete("all")
             return
 
@@ -43,9 +43,9 @@ def calculate_plants():
         remaining_days = total_days % growth_days
 
         if full_cycles > 0:
-            result_text = f"За выбранный период вырастет {full_cycles} полный(ых) цикл(ов) {plant_name}."
+            result_text = f"За выбранный период вырастет {full_cycles} растений: {plant_name}."
             if remaining_days > 0:
-                result_text += f"\nЕщё {remaining_days} дней — неполный цикл."
+                result_text += f"\nПрошло {remaining_days} дней с последнего выращенного растения."
         else:
             result_text = f"{plant_name} не успеет вырасти за выбранный период.\nОсталось {remaining_days} дней до первого урожая."
 
@@ -91,10 +91,10 @@ def draw_plants(full_cycles, remaining_days, plant_name):
         canvas.create_oval(x-8, canvas_height-30-height, x+8, canvas_height-10-height, fill="lightblue", outline="blue")
 
 root = tk.Tk()
-root.title("Симулятор роста растений")
+root.title("Рост растений")
 root.geometry("450x500")
 
-title_label = tk.Label(root, text="Симулятор роста растений", font=("Arial", 16, "bold"))
+title_label = tk.Label(root, text="Рост растений", font=("Arial", 16, "bold"))
 title_label.pack(pady=10)
 
 plant_label = tk.Label(root, text="Выберите растение:")
@@ -119,7 +119,7 @@ tk.Label(date_frame, text="Год:").grid(row=0, column=4, padx=5)
 year_entry = tk.Entry(date_frame, width=8)
 year_entry.grid(row=0, column=5, padx=5)
 
-calculate_button = tk.Button(root, text="Рассчитать рост растений", command=calculate_plants)
+calculate_button = tk.Button(root, text="Рассчитать рост", command=calculate_plants)
 calculate_button.pack(pady=10)
 
 result_label = tk.Label(root, text="", font=("Arial", 10), justify="left", anchor="w")
@@ -128,7 +128,7 @@ result_label.pack(pady=10)
 canvas = tk.Canvas(root, width=300, height=150, bg="white", relief="solid", bd=1)
 canvas.pack(pady=10)
 
-info_label = tk.Label(root, text="Визуализация роста растений (максимум 10 растений)", font=("Arial", 8), fg="gray")
+info_label = tk.Label(root, text="Визуализация максимум 10 растений", font=("Arial", 8), fg="gray")
 info_label.pack()
 
 now = datetime.now()
